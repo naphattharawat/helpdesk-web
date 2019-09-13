@@ -1,0 +1,23 @@
+<body class="text-center">
+  <form class="form-signin">
+    <img class="mb-4" src="./assets/images/icon.png" alt="" width="120" height="120">
+    <h1 class="h3 mb-3 font-weight-normal">Please sign in</h1>
+    <label for="inputEmail" class="sr-only">Username</label>
+    <input type="text" id="inputEmail" class="form-control" placeholder="Username" required="" autofocus=""
+      [(ngModel)]="username" name="username">
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required=""
+      [(ngModel)]="password" name="password">
+    <!-- <div class="checkbox mb-3">
+      <label>
+        <input type="checkbox" value="remember-me" [(ngModel)]="isRemember" name="isRemember"> Remember me
+      </label>
+    </div> -->
+    <button *ngIf="showError" mat-raised-button color="warn">{{error}}</button>
+    <!-- <ngb-alert type="danger" *ngIf="showError" (close)="showError = false">{{ error }}</ngb-alert> -->
+    <button class="btn btn-lg btn-primary btn-block" (click)="login()">Sign in</button>
+    <p class="mt-5 mb-3 text-muted">© 2019</p>
+  </form>
+
+
+</body>

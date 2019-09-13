@@ -1,1 +1,90 @@
 /* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.fill-remaining-space {
+  flex: 1 1 auto;
+}
+
+
+.container {
+  width: 400px;
+  height: 200px;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #eee;
+}
+
+.box1 {
+  color: white;
+  background-color: #96BCE4
+}
+
+.box2 {
+  color: white;
+  background-color: #FDA34B
+}
+
+.box3 {
+  color: white;
+  background-color: #87CC71
+}
+
+.box4 {
+  color: white;
+  background-color: #F26963
+}
+
+.box5 {
+  color: white;
+  background-color: #46A9E2
+}
+
+.t-container {
+  padding: 1rem;
+  width: 100%;
+  min-width: 100%;
+  margin: 0;
+}
+
+
+.example-form {
+  min-width: 150px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.example-full-width {
+  width: 100%;
+}
+
+.flex-container {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+
+.space-around {
+  justify-content: space-around;
+}
+
+
+.table {
+  display: inline-block;
+  background-color: #fff;
+  border-spacing: 0;
+  box-shadow: 0 5px 5px -3px rgba(0, 0, 0, .2), 0 8px 10px 1px rgba(0, 0, 0, .14), 0 3px 14px 2px rgba(0, 0, 0, .12);
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  /* border-collapse: collapse; */
+}
