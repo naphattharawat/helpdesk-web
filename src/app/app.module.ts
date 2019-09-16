@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { environment } from '../environments/environment';
 import { AuthGuardService } from './auth-guard.service';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -31,6 +33,7 @@ import { AuthGuardService } from './auth-guard.service';
     AuthGuardService,
     LoginService,
     { provide: 'API_URL', useValue: environment.apiUrl }
+    { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
 })
