@@ -258,6 +258,12 @@ export class HomeComponent implements OnInit {
 })
 export class DialogDataExampleDialog {
   device = 'TEL';
+  isH4U: any;
+  isQ4U: any;
+  isHIS: any;
+  isMMIS: any;
+  tel: any;
+  contact: any;
 
 }
 
