@@ -264,6 +264,7 @@ export class DialogDataExampleDialog {
   isMMIS: any;
   tel: any;
   contact: any;
+  detail: any;
 
 }
 
