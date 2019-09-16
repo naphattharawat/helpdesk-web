@@ -32,7 +32,7 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
   providers: [
     AuthGuardService,
     LoginService,
-    { provide: 'API_URL', useValue: environment.apiUrl }
+    { provide: 'API_URL', useValue: environment.apiUrl },
     { provide: LocationStrategy, useClass: HashLocationStrategy }
   ],
   bootstrap: [AppComponent]
