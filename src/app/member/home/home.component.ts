@@ -365,6 +365,7 @@ export class DialogDataExampleDialog {
   tel: any;
   contact: any;
   detail: any;
+  data: any;
   constructor(
     public dialogRef: MatDialogRef<DialogDataExampleDialog>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
