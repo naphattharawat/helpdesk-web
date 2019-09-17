@@ -121,12 +121,70 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  edit(e) {
+    const idx = _.findIndex(this.dataSource, { id: +e });
+    if (idx > -1) {
+      let isH4U = false;
+      let isQ4U = false;
+      let isHIS = false;
+      let isMMIS = false;
+      const sub = this.dataSource[idx].subject.split(',');
+      const idxMMIS = _.indexOf(sub, 'MMIS');
+      if (idxMMIS > -1) {
+        isMMIS = true;
+      }
+      const idxHIS = _.indexOf(sub, 'HIS');
+      if (idxHIS > -1) {
+        isHIS = true;
+      }
+      const idxQ4U = _.indexOf(sub, 'Q4U');
+      if (idxQ4U > -1) {
+        isQ4U = true;
+      }
+      const idxH4U = _.indexOf(sub, 'H4U');
+      if (idxH4U > -1) {
+        isH4U = true;
+      }
 
+      const dialogRef = this.dialog.open(DialogDataExampleDialog, {
+        width: '70%',
+        data: {
+          contact: this.dataSource[idx].contact,
+          tel: this.dataSource[idx].tel,
+          detail: this.dataSource[idx].detail,
+          device: this.dataSource[idx].device,
+          id: this.dataSource[idx].id,
+          isMMIS,
+          isH4U,
+          isQ4U,
+          isHIS
+        },
+      });
+
+      dialogRef.afterClosed().subscribe(async (result) => {
+        console.log('The dialog was closed');
+        if (result) {
+          this.device = result.device;
+          this.tel = result.tel;
+          this.contact = result.contact;
+          this.assign = result.assign;
+          this.status = result.status;
+          this.isH4U = result.isH4U;
+          this.isQ4U = result.isQ4U;
+          this.isHIS = result.isHIS;
+          this.isMMIS = result.isMMIS;
+          this.detail = result.detail;
+          this.id = result.id;
+          await this.update();
+        }
+      });
+    }
+  }
 
   openDialog(): void {
     const dialogRef = this.dialog.open(DialogDataExampleDialog, {
       width: '70%',
-      data: {}
+      data: { device: 'TEL' }
     });
 
     dialogRef.afterClosed().subscribe(async (result) => {
@@ -150,7 +208,7 @@ export class HomeComponent implements OnInit {
   async save() {
     try {
       const subject = await this.convertCheckBox();
-      const obj = {
+      const obj: any = {
         subject,
         device: this.device,
         detail: this.detail,
@@ -160,6 +218,9 @@ export class HomeComponent implements OnInit {
         assign: this.assign,
         create_id: this.decoded.id
       };
+      if (this.status === 3) {
+        obj.process_id = this.decoded.id;
+      }
       const rs: any = await this.helpdeskService.save(obj);
       if (rs.ok) {
 
@@ -173,8 +234,47 @@ export class HomeComponent implements OnInit {
       console.log(error);
 
     }
+  }
 
+  async update() {
+    try {
+      const subject = await this.convertCheckBox();
+      const obj = {
+        subject,
+        device: this.device,
+        detail: this.detail,
+        tel: this.tel,
+        contact: this.contact,
+        status_id: this.status,
+        assign: this.assign
+      };
+      const rs: any = await this.helpdeskService.update(this.id, obj);
+      if (rs.ok) {
+        this.clear();
+      } else {
+        console.log(rs.error);
 
+      }
+      await this.getList();
+
+    } catch (error) {
+      console.log(error);
+
+    }
+  }
+
+  clear() {
+    this.device = 'TEL';
+    this.tel = null;
+    this.contact = null;
+    this.assign = null;
+    this.status = null;
+    this.isH4U = null;
+    this.isQ4U = null;
+    this.isHIS = null;
+    this.isMMIS = null;
+    this.detail = null;
+    this.id = null;
   }
 
   convertCheckBox() {
@@ -265,7 +365,9 @@ export class DialogDataExampleDialog {
   tel: any;
   contact: any;
   detail: any;
-
+  constructor(
+    public dialogRef: MatDialogRef<DialogDataExampleDialog>,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
 }
 
 
