@@ -1,3 +1,4 @@
+import { AdminModule } from './admin/admin.module';
 import { AuthModule } from './auth/auth.module';
 import { LoginService } from './login.service';
 import { LoginModule } from './login/login.module';
@@ -27,7 +28,8 @@ import { HashLocationStrategy, LocationStrategy } from '@angular/common';
     FormsModule,
     MemberModule,
     LoginModule,
-    AuthModule
+    AuthModule,
+    AdminModule
   ],
   providers: [
     AuthGuardService,

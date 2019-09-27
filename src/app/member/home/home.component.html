@@ -63,8 +63,19 @@
   </div>
 
   <div class="row" style="margin-top: 1rem;padding-left:1rem">
-    <div class="col-md-12">
+    <div class="col-md-1">
       <button mat-raised-button color="accent" (click)="openDialog()">Add</button>
+    </div>
+    <div class="col-md-11">
+      <mat-form-field style="width: 95%;margin-left: 2.5%">
+        <mat-label>ปีงบ</mat-label>
+        <mat-select [(value)]="period" (selectionChange)="onChangePeriod($event)">
+          <mat-option value="">ทั้งหมด</mat-option>
+          <mat-option value="2019">2562</mat-option>
+          <mat-option value="2020">2563</mat-option>
+          <mat-option value="2021">2564</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
 

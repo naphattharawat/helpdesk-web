@@ -26,11 +26,13 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(this.token);
-    console.log(this.jwtHelper.isTokenExpired(this.token));
-
     if (!this.jwtHelper.isTokenExpired(this.token)) {
-      this.router.navigateByUrl('/member');
+      const decoded = this.jwtHelper.decodeToken(this.token);
+      if (decoded.isAdmin === 'Y') {
+        this.router.navigateByUrl('/admin');
+      } else {
+        this.router.navigateByUrl('/member');
+      }
     }
   }
 
@@ -39,7 +41,12 @@ export class LoginComponent implements OnInit {
       const rs: any = await this.loginService.login(this.username, this.password);
       if (rs.ok) {
         localStorage.setItem('token', rs.token);
-        this.router.navigateByUrl('/member');
+        const decoded = this.jwtHelper.decodeToken(rs.token);
+        if (decoded.isAdmin === 'Y') {
+          this.router.navigateByUrl('/admin');
+        } else {
+          this.router.navigateByUrl('/member');
+        }
       } else {
         this.error = rs.error;
         this.showError = true;

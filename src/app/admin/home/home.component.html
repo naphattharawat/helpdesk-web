@@ -1,0 +1,76 @@
+<div class="row">
+  <div class="col-md-12">
+    <mat-form-field style="width: 95%;margin-left: 2.5%">
+      <mat-label>ปีงบ</mat-label>
+      <mat-select [(value)]="period" (selectionChange)="onChangePeriod($event)">
+        <mat-option value="">ทั้งหมด</mat-option>
+        <mat-option value="2019">2562</mat-option>
+        <mat-option value="2020">2563</mat-option>
+        <mat-option value="2021">2564</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
+<div class="t-container">
+  <div class="row" style="width:100%;margin:0">
+    <div class="col-md-4">
+      <div class="card box1">
+        <div class="card-body">
+          <h4 class="card-title">
+            {{countWait}}
+          </h4>
+          <!-- <div class="card-text">
+                  7809
+                </div> -->
+        </div>
+        <div class="card-footer">
+          รอดำเนินการ
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card box2">
+        <div class="card-body">
+          <h4 class="card-title">
+            {{countProcess}}
+          </h4>
+          <!-- <div class="card-text">
+                  7809
+                </div> -->
+        </div>
+        <div class="card-footer">
+          กำลังดำเนินการ
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card box3">
+        <div class="card-body">
+          <h4 class="card-title">
+            {{countPass}}
+          </h4>
+          <!-- <div class="card-text">
+                  7809
+                </div> -->
+        </div>
+        <div class="card-footer">
+          ดำเนินการเสร็จสิ้น
+        </div>
+      </div>
+    </div>
+    <!-- <div class="col-md-3">
+      <div class="card box4">
+        <div class="card-body">
+          <h4 class="card-title">
+            {{countRemove}}
+          </h4>
+        </div>
+        <div class="card-footer">
+          ยกเลิก
+        </div>
+      </div>
+    </div> -->
+  </div>
+
+  <chart type="bar" [data]="dataChart" [options]="optionsChart"></chart>
+  <chart type="bar" [data]="dataChart2" [options]="optionsChart"></chart>

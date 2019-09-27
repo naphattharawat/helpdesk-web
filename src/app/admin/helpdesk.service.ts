@@ -23,18 +23,11 @@ export class HelpdeskService {
     return resp;
   }
 
-  async save(data) {
-    const url = `${this.apiUrl}/api/`;
-    const resp = await this.httpClient.post(`${url}`, { data }).toPromise();
+  async getCountUser(period = '') {
+    const url = `${this.apiUrl}/api/count-user?period=${period}`;
+    const resp = await this.httpClient.get(`${url}`).toPromise();
     return resp;
   }
 
-  async update(id, data) {
-    const url = `${this.apiUrl}/api/`;
-    const resp = await this.httpClient.put(`${url}`, {
-      id,
-      data
-    }).toPromise();
-    return resp;
-  }
+
 }

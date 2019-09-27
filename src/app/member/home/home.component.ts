@@ -1,11 +1,12 @@
-import { HelpdeskService } from './../helpdesk.service';
 import { AddComponent } from './../modal/add/add.component';
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { HelpdeskService } from './../helpdesk.service';
 import * as _ from 'lodash';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import * as moment from 'moment';
 export interface DialogData {
   id: any;
 }
@@ -42,6 +43,7 @@ export class HomeComponent implements OnInit {
   offset = 0;
   total: any;
   order = 'asc';
+  period: any;
   constructor(
     public dialog: MatDialog,
     private helpdeskService: HelpdeskService) {
@@ -49,43 +51,58 @@ export class HomeComponent implements OnInit {
     this.decoded = this.jwtHelper.decodeToken(this.token);
   }
 
+
   ngOnInit() {
-    this.getList();
+    this.getData();
+    // const month = moment().get('month') + 1;
+    // let year = moment().get('year');
+    // if (month >= 10) {
+    //   year += 1;
+    // }
+
+    // this.period = `${year}`;
+    this.period = '';
   }
 
+  getData() {
+    this.getCount();
+    this.getList();
+  }
   changePage(e) {
     this.limit = e.pageSize;
     this.offset = e.pageIndex * this.limit;
     this.getList();
-    console.log(e);
 
   }
 
   sortData(e) {
-    console.log(e);
     this.order = e.direction;
     this.getList();
 
   }
   async getList() {
     try {
-      const rs: any = await this.helpdeskService.getList(this.limit, this.offset, this.order);
+      const rs: any = await this.helpdeskService.getList(this.limit, this.offset, this.order, this.period);
       // console.log(rs);
       if (rs.ok) {
         this.dataSource = rs.rows;
         this.total = rs.total;
       } else {
         console.log(rs.error);
-
       }
-      await this.getCount();
     } catch (error) {
       console.log(error);
     }
   }
+
+  onChangePeriod(e) {
+    this.period = e.value;
+    this.getData();
+  }
+
   async getCount() {
     try {
-      const rs: any = await this.helpdeskService.getCount();
+      const rs: any = await this.helpdeskService.getCount(this.period);
       if (rs.ok) {
         const total = rs.rows;
         const idx = _.findIndex(total, { status_id: 1 });
@@ -365,10 +382,10 @@ export class DialogDataExampleDialog {
   tel: any;
   contact: any;
   detail: any;
-  data: any;
+  // data: any;
   constructor(
     public dialogRef: MatDialogRef<DialogDataExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: DialogData) { }
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 }
 
 
