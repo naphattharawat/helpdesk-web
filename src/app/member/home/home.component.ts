@@ -25,6 +25,7 @@ export class HomeComponent implements OnInit {
   assign: any;
   status: any;
   isH4U: any;
+  isCoWard: any;
   isQ4U: any;
   isHIS: any;
   isMMIS: any;
@@ -145,6 +146,7 @@ export class HomeComponent implements OnInit {
       let isQ4U = false;
       let isHIS = false;
       let isMMIS = false;
+      let isCoWard = false;
       const sub = this.dataSource[idx].subject.split(',');
       const idxMMIS = _.indexOf(sub, 'MMIS');
       if (idxMMIS > -1) {
@@ -162,6 +164,10 @@ export class HomeComponent implements OnInit {
       if (idxH4U > -1) {
         isH4U = true;
       }
+      const idxCoWard = _.indexOf(sub, 'COWARD');
+      if (idxCoWard > -1) {
+        isCoWard = true;
+      }
 
       const dialogRef = this.dialog.open(DialogDataExampleDialog, {
         width: '70%',
@@ -173,6 +179,7 @@ export class HomeComponent implements OnInit {
           id: this.dataSource[idx].id,
           isMMIS,
           isH4U,
+          isCoWard,
           isQ4U,
           isHIS
         },
@@ -188,6 +195,7 @@ export class HomeComponent implements OnInit {
           this.status = result.status;
           this.isH4U = result.isH4U;
           this.isQ4U = result.isQ4U;
+          this.isCoWard = result.isCoWard;
           this.isHIS = result.isHIS;
           this.isMMIS = result.isMMIS;
           this.detail = result.detail;
@@ -213,6 +221,7 @@ export class HomeComponent implements OnInit {
         this.assign = result.assign;
         this.status = result.status;
         this.isH4U = result.isH4U;
+        this.isCoWard = result.isCoWard;
         this.isQ4U = result.isQ4U;
         this.isHIS = result.isHIS;
         this.isMMIS = result.isMMIS;
@@ -287,6 +296,7 @@ export class HomeComponent implements OnInit {
     this.assign = null;
     this.status = null;
     this.isH4U = null;
+    this.isCoWard = null;
     this.isQ4U = null;
     this.isHIS = null;
     this.isMMIS = null;
@@ -298,6 +308,9 @@ export class HomeComponent implements OnInit {
     const subject = [];
     if (this.isH4U) {
       subject.push('H4U');
+    }
+    if (this.isCoWard) {
+      subject.push('COWARD');
     }
     if (this.isQ4U) {
       subject.push('Q4U');
